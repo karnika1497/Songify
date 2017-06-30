@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Song App</title>
+    <link rel="stylesheet" type="text/css" href="font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <section class="welcome-screen hidden">
+            <h1> Welcome to Songify </h1>
+            <h3> Enter name to access your account </h3>
+            <div class="input-wrapper">
+                <input type="text" placeholder="Name" id="name-input">
+                <button> Go </button>
+            </div>
+        </section>
+        <div class="main">
+            <header>
+                <div class="right floated user-name"> </div>
+            </header>
+            <section class="content">
+                <audio src="song1.mp3"></audio>
+                <div class="list-headers">
+        <div> Title </div> 
+        <div> Artist </div>
+        <div> Album </div>
+        <div> Duration </div>
+        </div>
+        <div class="song-list">
+        <div class="song" id="song1">
+        <span class="song-name"></span>
+        <span class="song-artist"></span>
+        <span class="song-album"></span>
+        <span class="song-length"></span>
+        </div>
+
+        <div class="song" id="song2">
+        <span class="song-name"></span>
+        <span class="song-artist"></span>
+        <span class="song-album"></span>
+        <span class="song-length"></span>
+        </div>
+
+        <div class="song" id="song3">
+        <span class="song-name"></span>
+        <span class="song-artist"></span>
+        <span class="song-album"></span>
+        <span class="song-length"></span>
+        </div>
+
+        <div class="song" id="song4">
+        <span class="song-name"></span>
+        <span class="song-artist"></span>
+        <span class="song-album"></span>
+        <span class="song-length"></span>
+        </div>
+        </div>
+            </section>
+            <footer>
+                <div class="controls">
+                    <div class="player-buttons">
+                        <i class="fa fa-play clickable play-icon" aria-hidden="true"></i>
+                    </div>
+                    <div class="progress-wrapper">
+                        <span class="time-elapsed"> </span>
+                        <div class="player-progress">
+                            <div class="progress-filled"> </div>
+                        </div>
+                        <span class="song-duration"></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="jquery.js">
+    </script>
+    <script>
+   
+    //----------------Toggle_Song----------------------
+
+    function toggleSong(){  //created a function that toggle the song
+         var song = document.querySelector('audio');// ek song variable liya jisme audio tag ko pakad ke daal diya 
+        if (song.paused == true) { // ab song se pucha ki wo pause hai ya nahi, agar pause hua to ander wala code chalega otherwise else chalega
+            console.log('Playing');//console pe playing show hoga
+            $('.play-icon').removeClass('fa-play').addClass('fa-pause');// play-icon class ko pakad ke usme fa-play class remove kardi and fa-pause add kardi isse icon change ho jayega 
+            song.play();// song play ho jayega
+        } 
+        else // agar song play ho raha hua to else wala part chlega 
+        {
+            console.log('Pausing');// console pe pausing print karwa diya
+            $('.play-icon').removeClass('fa-pause').addClass('fa-play');// play-icon class ko pakad ke usme fa-pause class remove kardi 
+            song.pause(); // song pause ho jayega
+        }
+    }
+
+    //--------------------- UpdateCurrent Time -----------------
+
+     function updateCurrentTime()// new function bnaya
+    {
+        var song = document.querySelector('audio'); // song variable mein audio tag daal diya 
+   //      //console.log(song.currentTime);// console pe song ka currentTime show karwa diya
+   // // console.log(song.duration); // console pe song ki duration show ho jaye
+    $('.time-elapsed').text(fancyTimeFormat(song.currentTime));// time-elapsed wale tag mein fancy time format function call kar ke current time print karwa liya
+    $('.song-duration').text(fancyTimeFormat(song.duration));// song-duration wale tag mein fancy time format function call kar ke cduration print karwa li
+     }
+
+    // function updateCurrentTime() 
+    // {
+    //     var song = document.querySelector('audio');
+    //     var currentTime = Math.floor(song.currentTime);
+    //     currentTime = fancyTimeFormat(currentTime);
+    //     var duration = Math.floor(song.duration);
+    //     duration = fancyTimeFormat(duration)
+    //     $('.time-elapsed').text(currentTime); 
+    //     $('.song-duration').text(duration);
+    // }
+
+
+    //------------------------ FancyTimeFormat ------------------
+
+    
+    function fancyTimeFormat(time)
+    {   
+        // Hours, minutes and seconds
+        var hrs = ~~(time / 3600);
+        var mins = ~~((time % 3600) / 60);
+        var secs = ~~(time % 60);
+
+        // Output like "1:01" or "4:03:59" or "123:03:59"
+        var ret = "";
+
+        if (hrs > 0) 
+        {
+            ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+        }
+
+        ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+        ret += "" + secs;
+        return ret;
+    }
+
+
+    //---------------------- Welcome-Screen Code ---------------
+   
+    $('.welcome-screen button').on('click', function()// button ko pakda and click hone pe function chlya
+        {
+        var name = $('#name-input').val(); // name variable liya ek  usme name-input mein jo value input karenge wo daal di
+        if (name.length > 2) {  //agar name variable mein jo value hai uski length 2 se jyada hai toh ander wala code chalega 
+            var message = "Welcome, " + name;// message variable liya and usme welcome + name variable ki value daal di
+            $('.main .user-name').text(message);// user name class wale tag ko pakda and usme text daal diya jo message variable mein tha
+            $('.welcome-screen').addClass('hidden');// welcome-screen wala section hide kar diya bcz usme hidden class add kardi
+            $('.main').removeClass('hidden');// main class ko pakda and usse hidden class remove kar di and wo ab show ho jayega
+        } else //agar name variable ki length < 2 hui then ander wala code chalega
+        {
+            $('#name-input').addClass('error');// name-input id wala tag pakda, usme error class add kardi
+        }
+    });
+
+    //------------------ play-icon pressed ---------------------
+   
+    $('.play-icon').on('click', function() {// play-icon wali class wala tag pakda and usko click karne pe function chla diya
+       toggleSong();// toggleSong wala function ua machine call ki i.e. ab toggleSong wala function chalega
+    });
+    
+    //---------------- Space-bar pressed ----------------------
+
+    $('body').on('keypress', function(event) { //body ko pakda uspe keypress ka event lagaya, jab key press hogi tab function chalega; isme event as an argument pass kiya hai
+                if (event.keyCode == 32) // event se hum bhot kuch check kar sakte hain jaise yahan humne keyCode check kiya hai matlab jo key humne press ki hai uska code 32 hai to ander wala code chalega otherwise nhi
+                {
+                   toggleSong();// toggleSong wala function call kar diya
+               }
+            });
+
+    //------------------- printing on console --------------
+    
+    window.onload=function () { //jab bhi page or say window load ho function chalega
+        // body...
+        
+        var songList= ['Ride','Emptiness','I wanna grow old with you','Nashe si chad gyi'];// array bna diya song list ka
+        var songSrc= ['song1.mp3','song2.mp3','song3.mp3','song4.mp3'] // array  bna diya songs ke sources ka
+
+        $('#song1 .song-name').text(songList[0]); // song1 id mein se song-name class wale tag ko uthaya usme songList array ka 0th element daal diya
+        $('#song2 .song-name').text(songList[1]);// song1 id mein se song-name class wale tag ko uthaya usme songList array ka 0th element daal diya
+        $('#song3 .song-name').text(songList[2]);// song1 id mein se song-name class wale tag ko uthaya usme songList array ka 2nd element daal diya
+        $('#song4 .song-name').text(songList[3]);// song4 id mein se song-name class wale tag ko uthaya usme songList array ka 3rd element daal diya
+
+        $('#song1').on('click',function(){
+            var audio= document.querySelector('audio');
+             if(audio.src.search(songSrc[0])!=-1)
+            {
+                toggleSong();
+            }
+            else
+            {
+                audio.src= songSrc[0];
+                toggleSong();
+            }
+        }); 
+        $('#song2').on('click',function(){
+            var audio= document.querySelector('audio');
+             if(audio.src.search(songSrc[1])!=-1)
+            {
+                toggleSong();
+            }
+            else
+            {
+                audio.src= songSrc[1];
+                toggleSong();
+            }
+        });
+        $('#song3').on('click',function(){
+            var audio= document.querySelector('audio');
+             if(audio.src.search(songSrc[2])!=-1)
+            {
+                toggleSong();
+            }
+            else
+            {
+                audio.src= songSrc[2];
+                toggleSong();
+            }
+        });
+        $('#song4').on('click',function(){
+            var audio= document.querySelector('audio');
+            if(audio.src.search(songSrc[3])!=-1)
+            {
+                toggleSong();
+            }
+            else
+            {
+                audio.src= songSrc[3];
+                toggleSong();
+            }
+        }); 
+
+        updateCurrentTime();// jab load hogi window tabhi call ho jayega function
+        setInterval(function() { // 1 sec ke baad function chalega and har sec ke baad chalta rahega, kinda infinite loop
+            updateCurrentTime(); // updateCurrentTime function call kiya
+        }, 1000);
+       
+    }
+    
+    </script>
+</body>
+
+</html>
