@@ -95,13 +95,43 @@ function toggleSong(){  //created a function that toggle the song
                }
             });
 
-    //------------------ Arrays -----------------
+    //------------------ Object Array -----------------
 
-        var songList= ['Ride','Emptiness','I wanna grow old with you','Nashe si chad gyi'];// array bna diya song list ka
-        var songSrc= ['song1.mp3','song2.mp3','song3.mp3','song4.mp3'] // array  bna diya songs ke sources ka
-        var artistName=['SoMo','Gajendra Verma','Westlife','Arijit Singh'];
-        var albumName=['Blurryface',' Alesana','World of Our Own','Befikre'];
-        var songLength=['3:37','4:05','4:08','2:34'];
+//array of an object is created and an object contains all the details of the song
+        var songs= [
+        {
+            'name':'Ride',
+            'album':'Blurryface',
+            'artist':'SoMo',
+            'dur':'3:37',
+            'source':'song1.mp3',
+            'img':'song1.jpeg'
+        },
+        {
+            'name':'Emptiness',
+            'album':'Alesana',
+            'artist':'Gajendra Verma',
+            'dur':'4:05',
+            'source':'song2.mp3',
+            'img':'song2.jpg'
+        },
+        {
+            'name':'I wanna grow old with you',
+            'album':'World of Our Own',
+            'artist':'Westlife',
+            'dur':'4:08',
+            'source':'song3.mp3',
+            'img':'song3.jpeg'
+        },
+        {
+            'name':'Nashe si chad gayi',
+            'album':'Befikre',
+            'artist':'Arijit Singh',
+            'dur':'2:34',
+            'source':'song4.mp3',
+            'img':'song4.jpg'
+        }
+        ]
        //--------------------- Play All Function ----------------
 
     function playAll()
@@ -129,31 +159,48 @@ function toggleSong(){  //created a function that toggle the song
     window.onload=function () { //jab bhi page or say window load ho function chalega
         // body...
         
-         for(var i =0; i < songList.length;i++) // loop lagaya fom 0 to 3
+         for(var i =0; i < songs.length;i++) // loop lagaya fom 0 to 3
          {
+            var obj= songs[i];// obj variable is created and one by one objects are placed in variable
         var name = '#song' + (i+1); // name mein tag ki id ka name daal liya
         var song = $(name); // song mein name wali id wala tag pakad ki daal liya
-        song.find('.song-name').text(songList[i]);// id wale div ke child divs mein se song-name class wla div find kar ke usme text daal diya
-        song.find('.song-artist').text(artistName[i]);// id wale div ke child divs mein se song-artist class wla div find kar ke usme text daal diya
-        song.find('.song-album').text(albumName[i]);// id wale div ke child divs mein se song-album class wla div find kar ke usme text daal diya
-        song.find('.song-length').text(songLength[i]);// id wale div ke child divs mein se song-length class wla div find kar ke usme text daal diya
+        song.find('.song-name').text(obj.name);// id wale div ke child divs mein se song-name class wla div find kar ke usme text daal diya
+        song.find('.song-artist').text(obj.artist);// id wale div ke child divs mein se song-artist class wla div find kar ke usme text daal diya
+        song.find('.song-album').text(obj.album);// id wale div ke child divs mein se song-album class wla div find kar ke usme text daal diya
+        song.find('.song-length').text(obj.dur);// id wale div ke child divs mein se song-length class wla div find kar ke usme text daal diya
         // ab i increment ho ke ese hi sare songs ki details fll ho jayengi
         } 
 
+        //------------------------ Change current Song details ------------
+
+        function changeCurrentSongDetails(songObj)// current song ki details changr karne ke liye func. bnaya hai
+        {
+            $('#currentSongImg').attr('src','images/'+ songObj.img);//currentSongImg wale tag mein attributde src mein value daal di, eg. "images/song1.jpeg"
+            $('#currentSongName').text(songObj.name);// yahan song ke object mein se uska name daal diya
+            $('#currentSongAlbum').text(songObj.album);  // yahan song ke object mein se uski album daal di
+        } 
+
+        //----------------------- ADD SONG ON CLICK EVENT ----------------------
+
         function  addSongClickEvent( position)// function declare kiya addSongClickEvent name se and it takes an argument position
         {
+            changeCurrentSongDetails(songs[0]);// static value di hai yahan and 1st song ki details print karwa li
+            var songObj= songs[position-1];// object variable bnaya 
+            var songSrc=songObj.source;// song obj ka source property daal di variable mein
             var id= '#song' + position;// id variable mein #song + position concatenate ho ke dal jayegi for eg. agar position ki value 1 hui to id variable will become #song1
             $(id).on('click',function()// jo value id mein thi usse pakad kar on click event lga diya and click hone pe wo function chalega
             {
+
             var audio= document.querySelector('audio'); // audio tag ko pakad ke ek audio name ke box mein band kar liya
-             if(audio.src.search(songSrc[position-1])!=-1)// udio ke src attribute mein se song search kiya agar search ho gya to if block chalega
+             if(audio.src.search(songSrc)!=-1)// udio ke src attribute mein se song search kiya agar search ho gya to if block chalega
             {
                 toggleSong();// toggleSong func. call kiya 
             }
             else //agar search nhi hua to matlab koi aur song chal raha hai then else block chalega
             {
-                audio.src= songSrc[position-1];// audio ke src mein jo song click kiya hai uska src daal diya
+                audio.src= songSrc;// audio ke src mein jo song click kiya hai uska src daal diya
                 toggleSong();// toggleSong call kar liya ta ki song ko click kar ke play pause kar sakein 
+                changeCurrentSongDetails(songObj);// function call kiya and parameter pass kiya hai object
             }
             setInterval(function() 
             { // 1 sec ke baad function chalega and har sec ke   baad chalta rahega, kinda infinite loop
@@ -162,12 +209,14 @@ function toggleSong(){  //created a function that toggle the song
             }); 
         }
         
-       for (var i = 1; i <= songSrc.length ; i++) // ek variable liya i usko initialize kar liya 1 se and yeh 4 tak chalega bcz isme songSrc array ki length 4 hai
+       for (var i = 1; i <= songs.length ; i++) // ek variable liya i usko initialize kar liya 1 se and yeh 4 tak chalega bcz isme songSrc array ki length 4 hai
         {
             addSongClickEvent(i);// yahan addSongClickEvent() function call kar liya and i ki value upar pass kardi
         }
         
-        
+        $('#songs').DataTable({
+            paging:false
+        });
         updateCurrentTime();// jab load hogi window tabhi call ho jayega function
         setInterval(function() { // 1 sec ke baad function chalega and har sec ke baad chalta rahega, kinda infinite loop
             updateCurrentTime(); // updateCurrentTime function call kiya

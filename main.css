@@ -164,3 +164,45 @@ h1 {
 .song-length {
     text-align: right;
 }
+/* -------------current song css-----------------*/
+.content {
+    position: relative;
+}
+.currentSong{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+}
+
+#currentSongImg {
+    height: 100px;
+    width: 100px;
+    margin-right: 1rem;
+}
+
+.currentSongName {
+    font-size: 1.4rem;
+    margin-top: 4px;
+    margin-bottom: 0;
+}
+
+.currentSongAlbum {
+    margin-top: 0.4rem;
+}
+/*--------------------- Song Table Css ------------*/
+table.dataTable tbody tr {
+    background-color: initial;
+}
+#songs_info {
+    display: none;
+}
+
+#songs_filter {
+    color: transparent;
+}
+#songs_filter input {
+    width: 400px;
+    margin-bottom: 1rem;
+    font-size: 16px;
+}
+        
