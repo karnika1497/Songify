@@ -1,4 +1,65 @@
 
+    var repeat=0;
+    var shuffle=0;
+    var currentSong;
+    //------------------ Object Array ----------------
+
+
+//array of an object is created and an object contains all the details of the song
+        var songs= [
+        {
+            'name':'Ride',
+            'album':'Blurryface',
+            'artist':'SoMo',
+            'dur':'3:37',
+            'source':'song1.mp3',
+            'img':'song1.jpeg'
+        },
+        {
+            'name':'Emptiness',
+            'album':'Alesana',
+            'artist':'Gajendra Verma',
+            'dur':'4:05',
+            'source':'song2.mp3',
+            'img':'song2.jpg'
+        },
+        {
+            'name':'I wanna grow old with you',
+            'album':'World of Our Own',
+            'artist':'Westlife',
+            'dur':'4:08',
+            'source':'song3.mp3',
+            'img':'song3.jpeg'
+        },
+        {
+            'name':'Nashe si chad gayi',
+            'album':'Befikre',
+            'artist':'Arijit Singh',
+            'dur':'2:34',
+            'source':'song4.mp3',
+            'img':'song4.jpg'
+        }
+        ]
+        //---------------- Current Song Source --------------
+        function currentSongSource()
+        {
+            var audio= document.querySelector('audio');
+                  
+            var str= audio.src;
+            var start= str.length-9;
+            var res= str.substring(start,str.length);
+            console.log(res);
+            for(var i=0; i<songs.length;i++)
+            {
+                if(songs[i].source==res)
+                {
+                    currentSong=i+1;
+                    break;
+                }
+            }
+            return currentSong;
+
+        }
  //----------------Toggle_Song----------------------
 
 
@@ -16,6 +77,15 @@ function toggleSong(){  //created a function that toggle the song
             song.pause(); // song pause ho jayega
         }
     }
+    //------------------------ Change current Song details ------------
+
+        function changeCurrentSongDetails(songObj)// current song ki details changr karne ke liye func. bnaya hai
+        {
+            $('#currentSongImg').attr('src','images/'+ songObj.img);//currentSongImg wale tag mein attributde src mein value daal di, eg. "images/song1.jpeg"
+            $('#currentSongName').text(songObj.name);// yahan song ke object mein se uska name daal diya
+            $('#currentSongAlbum').text(songObj.album);  // yahan song ke object mein se uski album daal di
+        } 
+
 
     //--------------------- UpdateCurrent Time -----------------
 
@@ -78,81 +148,188 @@ function toggleSong(){  //created a function that toggle the song
         {
             $('#name-input').addClass('error');// name-input id wala tag pakda, usme error class add kardi
         }
+
+   
     });
+
+        //--------------------- Play All Function ----------------
+
+    function repeatAll()
+    {
+        var audio= document.querySelector('audio');
+        if(audio.currentTime==audio.duration)
+        {
+            if(shuffle==1)
+            {
+                 var random= ['2','1','3','0'];
+            
+                audio.src= songs[random[indexOfRandom]].source;
+            }
+            else
+            {
+            var currentSong= currentSongSource();
+            var currentSongObj= songs[currentSong];
+           
+            if(currentSong-1<songs.length-1)
+            {audio.src=currentSongObj.source;}
+        else if(currentSong-1==songs.length-1)
+        {
+                currentSong=0;
+                currentSongObj= songs[currentSong];
+                 audio.src=currentSongObj.source; 
+        }
+    }
+         audio.play();
+
+         console.log("hsixgnig");
+         console.log(currentSongObj);
+         changeCurrentSongDetails(currentSongObj);
+        }       
+    }
+
+    //-------------------- RepeatSong Function -----------------
+
+    //  function repeatSong()
+    // {
+    //     var audio= document.querySelector('audio');
+    //     if(audio.currentTime==audio.duration)
+    //     {
+            
+    //         var str= audio.src;
+    //         var start= str.length-9;
+    //         var res= str.substring(start,str.length);
+    //         console.log(res);
+            
+            
+    //         audio.src=res;
+    //         audio.play();
+    //     }        
+    // }
+   
+   //------------------------ Next Song Function =-----------
+
+   function nextSong()
+    {
+        
+             var currentSong= currentSongSource();
+            var currentSongObj= songs[currentSong];
+             var audio= document.querySelector('audio');
+           
+            if(currentSong-1<songs.length-1)
+            {audio.src=currentSongObj.source;}
+        else if(currentSong-1==songs.length-1)
+        {
+                currentSong=0;
+                currentSongObj= songs[currentSong];
+                 audio.src=currentSongObj.source; 
+        }
+         audio.play();
+         console.log("hsixgnig");
+         console.log(currentSongObj);
+         changeCurrentSongDetails(currentSongObj);
+    }
+
+    //----------------------- previous song -------------------
+
+    function preSong()
+    {
+        
+             var currentSong= currentSongSource();
+            var currentSongObj= songs[currentSong-2];
+             var audio= document.querySelector('audio');
+           
+            if(currentSong>1)
+            {audio.src=currentSongObj.source;}
+        else if(currentSong==1)
+        {
+                currentSong=songs.length-1;
+                currentSongObj= songs[currentSong];
+                 audio.src=currentSongObj.source; 
+        }
+         audio.play();
+         console.log("hsixgnig");
+         console.log(currentSongObj);
+         changeCurrentSongDetails(currentSongObj);
+    }
+    //--------------------- Shuffle Function ----------------
+        var indexOfRandom=0;
+       function shuffleSongs() {
+     var audio=document.querySelector('audio');
+    
+            // var random=~~((Math.random()*100)%4);
+            //     console.log(random);
+            var random= ['2','1','3','0'];
+            
+                audio.src= songs[random[indexOfRandom]].source;
+                audio.play();
+                changeCurrentSongDetails( songs[random[indexOfRandom]]);
+                console.log();
+                indexOfRandom++;
+                if(indexOfRandom>3)
+                {
+                    indexOfRandom=0;
+                }
+            
+       
+           // body...
+       }
+       
+
 
     //------------------ play-icon pressed ---------------------
    
     $('.play-icon').on('click', function() {// play-icon wali class wala tag pakda and usko click karne pe function chla diya
        toggleSong();// toggleSong wala function ua machine call ki i.e. ab toggleSong wala function chalega
     });
+
+    //--------------------- Repeat-Icon pressed ----------------
+
+    $('.repeat-icon').on('click', function() {// play-icon wali class wala tag pakda and usko click karne pe function chla diya
+       repeat=1-repeat;
+       $('.repeat-icon').toggleClass('disable');
+       //console.log("nested if parent");
+       
+      });
+
+    //------------------ Shuffle-icon pressed ---------------
+    $('.shuffle-icon').on('click', function() {// play-icon wali class wala tag pakda and usko click karne pe function chla diya
+       shuffle=1-shuffle;
+       console.log('shuffle value changed' + shuffle);
+       $('.shuffle-icon').toggleClass('disable');
+        
+
+       //console.log("nested if parent");
+       
+      });
+        
+    //----------------- Play Next pressed---------------------
+
+
+    $('.next-icon').on('click', function() {// play-icon wali class wala tag pakda and usko click karne pe function chla diya
+       nextSong();// toggleSong wala function ua machine call ki i.e. ab toggleSong wala function chalega
+        
+    });
+    
+    //------------------- Play Previous Song ------------------
+
+
+    $('.previous-icon').on('click', function() {// play-icon wali class wala tag pakda and usko click karne pe function chla diya
+       preSong();// toggleSong wala function ua machine call ki i.e. ab toggleSong wala function chalega
+        
+    });
     
     //---------------- Space-bar pressed ----------------------
 
     $('body').on('keypress', function(event) { //body ko pakda uspe keypress ka event lagaya, jab key press hogi tab function chalega; isme event as an argument pass kiya hai
-                if (event.keyCode == 32) // event se hum bhot kuch check kar sakte hain jaise yahan humne keyCode check kiya hai matlab jo key humne press ki hai uska code 32 hai to ander wala code chalega otherwise nhi
+                var target= event.target;
+                if (event.keyCode == 32 && target.tagName!='INPUT') // event se hum bhot kuch check kar sakte hain jaise yahan humne keyCode check kiya hai matlab jo key humne press ki hai uska code 32 hai to ander wala code chalega otherwise nhi
                 {
                    toggleSong();// toggleSong wala function call kar diya
                }
             });
 
-    //------------------ Object Array -----------------
-
-//array of an object is created and an object contains all the details of the song
-        var songs= [
-        {
-            'name':'Ride',
-            'album':'Blurryface',
-            'artist':'SoMo',
-            'dur':'3:37',
-            'source':'song1.mp3',
-            'img':'song1.jpeg'
-        },
-        {
-            'name':'Emptiness',
-            'album':'Alesana',
-            'artist':'Gajendra Verma',
-            'dur':'4:05',
-            'source':'song2.mp3',
-            'img':'song2.jpg'
-        },
-        {
-            'name':'I wanna grow old with you',
-            'album':'World of Our Own',
-            'artist':'Westlife',
-            'dur':'4:08',
-            'source':'song3.mp3',
-            'img':'song3.jpeg'
-        },
-        {
-            'name':'Nashe si chad gayi',
-            'album':'Befikre',
-            'artist':'Arijit Singh',
-            'dur':'2:34',
-            'source':'song4.mp3',
-            'img':'song4.jpg'
-        }
-        ]
-       //--------------------- Play All Function ----------------
-
-    function playAll()
-    {
-        var audio= document.querySelector('audio');
-        if(audio.currentTime==audio.duration)
-        {
-            var i;
-            var str= audio.src;
-            var start= str.length-9;
-            var res= str.substring(start,str.length);
-            console.log(res);
-            // if(audio.currentTime==audio.duration)
-            i= songSrc.indexOf(res);
-            i=i+1;
-            console.log(i);
-            audio.src=songSrc[i];
-            audio.play();
-        }        
-    }
-   
+    
+       
 
     //------------------- printing on console --------------
     
@@ -171,15 +348,7 @@ function toggleSong(){  //created a function that toggle the song
         // ab i increment ho ke ese hi sare songs ki details fll ho jayengi
         } 
 
-        //------------------------ Change current Song details ------------
-
-        function changeCurrentSongDetails(songObj)// current song ki details changr karne ke liye func. bnaya hai
-        {
-            $('#currentSongImg').attr('src','images/'+ songObj.img);//currentSongImg wale tag mein attributde src mein value daal di, eg. "images/song1.jpeg"
-            $('#currentSongName').text(songObj.name);// yahan song ke object mein se uska name daal diya
-            $('#currentSongAlbum').text(songObj.album);  // yahan song ke object mein se uski album daal di
-        } 
-
+        
         //----------------------- ADD SONG ON CLICK EVENT ----------------------
 
         function  addSongClickEvent( position)// function declare kiya addSongClickEvent name se and it takes an argument position
@@ -202,10 +371,7 @@ function toggleSong(){  //created a function that toggle the song
                 toggleSong();// toggleSong call kar liya ta ki song ko click kar ke play pause kar sakein 
                 changeCurrentSongDetails(songObj);// function call kiya and parameter pass kiya hai object
             }
-            setInterval(function() 
-            { // 1 sec ke baad function chalega and har sec ke   baad chalta rahega, kinda infinite loop
-             playAll(); // updateCurrentTime function call kiya
-            }, 1000);
+            
             }); 
         }
         
@@ -216,7 +382,27 @@ function toggleSong(){  //created a function that toggle the song
         
         $('#songs').DataTable({
             paging:false
+            
         });
+       
+
+       
+       $('audio').on('ended',function(){
+        if(shuffle==1)
+       {
+        
+        console.log("if shuffle");
+        shuffleSongs();
+        }
+        if(repeat==1)
+       {
+        
+        console.log("if repeat");
+        repeatAll();
+        }
+            
+        });
+        
         updateCurrentTime();// jab load hogi window tabhi call ho jayega function
         setInterval(function() { // 1 sec ke baad function chalega and har sec ke baad chalta rahega, kinda infinite loop
             updateCurrentTime(); // updateCurrentTime function call kiya

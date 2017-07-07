@@ -205,4 +205,37 @@ table.dataTable tbody tr {
     margin-bottom: 1rem;
     font-size: 16px;
 }
-        
+/*-------------- Icons css ---------*/
+.repeat-icon
+{
+    position:relative;
+    left:5%;
+}
+.next-icon
+{
+    position:relative;
+    left:2.5%;
+}
+.previous-icon
+{
+    position: relative;
+    left: -3%;
+}
+.shuffle-icon
+{
+    position: relative;
+    left: -6%;
+}
+.disable
+{
+    color:gray;
+}    
+/*---------------- Drum Kit Css --------------*/
+#back
+{
+    background: white;
+}
+#drumImage
+{
+    background: url(Drum_set.png);
+}
