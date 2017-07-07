@@ -234,8 +234,13 @@ table.dataTable tbody tr {
 #back
 {
     background: white;
+    height: 500px;
+
 }
 #drumImage
 {
     background: url(Drum_set.png);
+    background-size: cover;
+    background-position: center;
+    height:100%;
 }
