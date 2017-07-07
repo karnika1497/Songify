@@ -2,6 +2,7 @@
     var repeat=0;
     var shuffle=0;
     var currentSong;
+    var drumClicked=0;
     //------------------ Object Array ----------------
 
 
@@ -143,13 +144,36 @@ function toggleSong(){  //created a function that toggle the song
             var message = "Welcome, " + name;// message variable liya and usme welcome + name variable ki value daal di
             $('.main .user-name').text(message);// user name class wale tag ko pakda and usme text daal diya jo message variable mein tha
             $('.welcome-screen').addClass('hidden');// welcome-screen wala section hide kar diya bcz usme hidden class add kardi
-            $('.main').removeClass('hidden');// main class ko pakda and usse hidden class remove kar di and wo ab show ho jayega
+            $('.loading').removeClass('hidden');
+            setTimeout(function() {
+                  $('.loading').addClass('hidden');
+                 $('.main').removeClass('hidden');// main class ko pakda and usse hidden class remove kar di and wo ab show ho jayega
+            }, 4000);
+           
         } else //agar name variable ki length < 2 hui then ander wala code chalega
         {
             $('#name-input').addClass('error');// name-input id wala tag pakda, usme error class add kardi
         }
 
    
+    });
+    
+
+    //---------------------- Drum App show -----------
+
+    $('#drumIcon').on('click', function(){
+        drumClicked=1-drumClicked;
+        if(drumClicked==1)
+        {
+         $('.content').addClass('hidden');
+        $('.drum_app').removeClass('hidden');   
+        }
+        else
+        {
+          $('.content').removeClass('hidden');
+        $('.drum_app').addClass('hidden');  
+        }
+        
     });
 
         //--------------------- Play All Function ----------------

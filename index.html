@@ -9,12 +9,15 @@
 </head>
 <body>
     <div class="wrapper">
-        <section class="welcome-screen">
+        <section class="welcome-screen ">
             <h1>Welcome to Songify</h1>
             <h3>Enter name to access your account</h3>
             <div class="input-wrapper">
-                <input id="name-input" placeholder="Name" type="text"> <button>Go</button>
+                <input id="name-input" placeholder="Name" type="text" style="font-size: 18px; color: gray;"> <button style="font-size: 18px; ">Go</button>
             </div>
+        </section>
+        <section class="loading hidden">
+            <img src="https://www.insanyah.com/img/loader.gif">
         </section>
         <div class="main hidden">
             <header>
@@ -66,18 +69,23 @@
                     </div>
                 </div>
             </section>
-            <section>
+            <section class="drum_app hidden">
                 <div id="back">
-                    <div id="drumImage">
-                        
-                    </div>
+                    <img src="hi_hat.png" class="drumComponent">
+                    <img src="snare_drum.png" class="drumComponent">
+                    <img src="bass_drum.png" class="drumComponent">
+                    <img src="low_tom.png" class="drumComponent">
+                    <img src="middle_tom.png" class="drumComponent">
+                    <img src="Floor_Tom.png" class="drumComponent">
+                    <img src="ride_cymbal.png" class="drumComponent">
                 </div>
             </section>
             <footer>
                 <div class="controls">
                     <div class="player-buttons">
                         <i aria-hidden="true" class="fa fa-random clickable shuffle-icon disable"></i> <i aria-hidden="true" class="fa fa-step-backward clickable previous-icon"></i> <i aria-hidden="true" class="fa fa-play clickable play-icon"></i> <i aria-hidden="true" class="fa fa-step-forward clickable next-icon"></i> <i aria-hidden="true" class="fa fa-repeat clickable repeat-icon disable"></i>
-                    </div>
+                        <img src="drum.png" class="clickable" id="drumIcon">
+                    </div>  
                     <div class="progress-wrapper">
                         <span class="time-elapsed"></span>
                         <div class="player-progress">
