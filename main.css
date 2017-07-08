@@ -268,8 +268,59 @@ table.dataTable tbody tr {
     
     height:100%;
 }
-.drumComponent
+.drumComponent1
 {
-    width: 100px;
-    height: 100px;
+   position: relative;
+    top: 13%;
+    left: 18%;
+    width: 200px;
+    height: 125px;
+}
+.drumComponent2
+{
+    position: relative;
+    top: 29%;
+    left: 13.5%;
+    width: 175px;
+    height: 125px;
+}
+.drumComponent3
+{
+   position: relative;
+    top: 54%;
+    left: 15%;
+    width: 189px;
+    height: 200px;
+}
+.drumComponent4
+{
+    position: relative;
+    top: 16%;
+    left: -1%;
+    width: 115px;
+    height: 110px;
+}
+.drumComponent5
+{
+    position: relative;
+    top: 17%;
+    left: -1%;
+    width: 125px;
+    height: 120px;
+}
+.drumComponent6
+{
+    position: relative;
+    top: 46%;
+    left: -1%;
+    width: 115px;
+    height: 155px;
+}
+.drumComponent7
+{
+    position: relative;
+    width: 175px;
+    height: 125px;
+    top: 9%;
+    left: -7%;
 }

@@ -3,6 +3,9 @@
     var shuffle=0;
     var currentSong;
     var drumClicked=0;
+    //-------------------- Drum Audio Array -----------
+
+    var drumSound= ['hi_hat.mp3','snare_drrum.mp3','bass_drum.mp3','low_tom.mp3','mid_tom.mp3','floor_tom.mp3','ride_cymbal.mp3'];
     //------------------ Object Array ----------------
 
 
@@ -136,9 +139,8 @@ function toggleSong(){  //created a function that toggle the song
 
 
     //---------------------- Welcome-Screen Code ---------------
-   
-    $('.welcome-screen button').on('click', function()// button ko pakda and click hone pe function chlya
-        {
+    function welcomeScreenFunction()
+    {
         var name = $('#name-input').val(); // name variable liya ek  usme name-input mein jo value input karenge wo daal di
         if (name.length > 2) {  //agar name variable mein jo value hai uski length 2 se jyada hai toh ander wala code chalega 
             var message = "Welcome, " + name;// message variable liya and usme welcome + name variable ki value daal di
@@ -154,7 +156,12 @@ function toggleSong(){  //created a function that toggle the song
         {
             $('#name-input').addClass('error');// name-input id wala tag pakda, usme error class add kardi
         }
-
+    }
+   
+    $('.welcome-screen button').on('click', function()// button ko pakda and click hone pe function chlya
+        {
+        
+            welcomeScreenFunction();
    
     });
     
@@ -165,6 +172,9 @@ function toggleSong(){  //created a function that toggle the song
         drumClicked=1-drumClicked;
         if(drumClicked==1)
         {
+            $('.play-icon').addClass('disable');
+            $('.next-icon').addClass('disable');
+            $('.previous-icon').addClass('disable');
          $('.content').addClass('hidden');
         $('.drum_app').removeClass('hidden');   
         }
@@ -172,6 +182,9 @@ function toggleSong(){  //created a function that toggle the song
         {
           $('.content').removeClass('hidden');
         $('.drum_app').addClass('hidden');  
+        $('.play-icon').removeClass('disable');
+            $('.next-icon').removeClass('disable');
+            $('.previous-icon').removeClass('disable');
         }
         
     });
@@ -352,6 +365,46 @@ function toggleSong(){  //created a function that toggle the song
                }
             });
 
+
+    $('#name-input').on('keypress', function(event) { //body ko pakda uspe keypress ka event lagaya, jab key press hogi tab function chalega; isme event as an argument pass kiya hai
+                
+                if (event.keyCode == 13) // event se hum bhot kuch check kar sakte hain jaise yahan humne keyCode check kiya hai matlab jo key humne press ki hai uska code 32 hai to ander wala code chalega otherwise nhi
+                {
+                   welcomeScreenFunction();
+               }
+            });
+
+
+    function drumSoundAdded(position)
+    {
+      var imgClass= '.drumComponent' + (position+1);
+        console.log(imgClass);
+        $(imgClass).on('click',function(){
+        var audio = document.querySelector('audio');
+        audio.src= drumSound[position];
+        console.log(audio.src);
+        audio.play();
+    });     
+    }
+        var keycodes=['72','83','66','76','77','70','82'];
+
+        function keyPressDrumPlay(key)
+        {
+             $('body').on('keypress', function(event) { //body ko pakda uspe keypress ka event lagaya, jab key press hogi tab function chalega; isme event as an argument pass kiya hai
+                var target= event.target;
+                var audio= document.querySelector('audio');
+                
+                if (event.keyCode == keycodes[key]) // event se hum bhot kuch check kar sakte hain jaise yahan humne keyCode check kiya hai matlab jo key humne press ki hai uska code 32 hai to ander wala code chalega otherwise nhi
+                {
+                    console.log(keycodes[key]);
+                   
+                   audio.src= drumSound[key] ;
+                   audio.play();// toggleSong wala function call kar diya
+               }
+            });
+        }
+   
+    
     
        
 
@@ -403,6 +456,14 @@ function toggleSong(){  //created a function that toggle the song
         {
             addSongClickEvent(i);// yahan addSongClickEvent() function call kar liya and i ki value upar pass kardi
         }
+        for (var i = 0; i <drumSound.length; i++) {
+            drumSoundAdded(i);
+           
+        }
+        for (var i = 0; i <drumSound.length; i++) {
+            
+            keyPressDrumPlay(i);
+        }
         
         $('#songs').DataTable({
             paging:false
@@ -426,6 +487,7 @@ function toggleSong(){  //created a function that toggle the song
         }
             
         });
+       $('#songs').DataTable();
         
         updateCurrentTime();// jab load hogi window tabhi call ho jayega function
         setInterval(function() { // 1 sec ke baad function chalega and har sec ke baad chalta rahega, kinda infinite loop
