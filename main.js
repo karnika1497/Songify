@@ -176,15 +176,19 @@ function toggleSong(){  //created a function that toggle the song
             $('.next-icon').addClass('disable');
             $('.previous-icon').addClass('disable');
          $('.content').addClass('hidden');
-        $('.drum_app').removeClass('hidden');   
+        $('.drum_app').removeClass('hidden');  
+        $('.fa').removeClass('clickable');
         }
         else
         {
+            var audio = document.querySelector('audio');
+            audio.src= songs[0].source;
           $('.content').removeClass('hidden');
         $('.drum_app').addClass('hidden');  
         $('.play-icon').removeClass('disable');
             $('.next-icon').removeClass('disable');
             $('.previous-icon').removeClass('disable');
+            $('.fa').addClass('clickable');
         }
         
     });
