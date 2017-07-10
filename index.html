@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <section class="welcome-screen ">
+        <section class="welcome-screen hidden ">
             <h1>Welcome to Songify</h1>
             <h3>Enter name to access your account</h3>
             <div class="input-wrapper">
@@ -23,8 +23,14 @@
             <header>
                 <div class="right floated user-name"></div>
             </header>
-            <section class="content ">
-                <audio src="song1.mp3"></audio>
+            <section class="content  hidden">
+                <audio class="audio1" src="song1.mp3"></audio>
+                <audio class="audio2"></audio>
+                <audio class="audio3"></audio>
+                <audio class="audio4"></audio>
+                <audio class="audio5"></audio>
+                <audio class="audio6"></audio>
+                <audio class="audio7"></audio>
                 <table id="songs">
                     <thead class="list-headers">
                         <tr>
@@ -69,7 +75,7 @@
                     </div>
                 </div>
             </section>
-            <section class="drum_app hidden">
+            <section class="drum_app">
                 <div id="back">
                     <img src="hi_hat.png" class="drumComponent1 clickable">
                     <img src="snare_drum.png" class="drumComponent2 clickable">

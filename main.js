@@ -3,6 +3,7 @@
     var shuffle=0;
     var currentSong;
     var drumClicked=0;
+    var audioPlaced=0;
     //-------------------- Drum Audio Array -----------
 
     var drumSound= ['hi_hat.mp3','snare_drrum.mp3','bass_drum.mp3','low_tom.mp3','mid_tom.mp3','floor_tom.mp3','ride_cymbal.mp3'];
@@ -47,7 +48,7 @@
         //---------------- Current Song Source --------------
         function currentSongSource()
         {
-            var audio= document.querySelector('audio');
+            var audio= document.querySelector('.audio1');
                   
             var str= audio.src;
             var start= str.length-9;
@@ -68,7 +69,7 @@
 
 
 function toggleSong(){  //created a function that toggle the song
-         var song = document.querySelector('audio');// ek song variable liya jisme audio tag ko pakad ke daal diya 
+         var song = document.querySelector('.audio1');// ek song variable liya jisme audio tag ko pakad ke daal diya 
         if (song.paused == true) { // ab song se pucha ki wo pause hai ya nahi, agar pause hua to ander wala code chalega otherwise else chalega
             console.log('Playing');//console pe playing show hoga
             $('.play-icon').removeClass('fa-play').addClass('fa-pause');// play-icon class ko pakad ke usme fa-play class remove kardi and fa-pause add kardi isse icon change ho jayega 
@@ -95,7 +96,7 @@ function toggleSong(){  //created a function that toggle the song
 
      function updateCurrentTime()// new function bnaya
     {
-        var song = document.querySelector('audio'); // song variable mein audio tag daal diya 
+        var song = document.querySelector('.audio1'); // song variable mein audio tag daal diya 
    //      //console.log(song.currentTime);// console pe song ka currentTime show karwa diya
    // // console.log(song.duration); // console pe song ki duration show ho jaye
     $('.time-elapsed').text(fancyTimeFormat(song.currentTime));// time-elapsed wale tag mein fancy time format function call kar ke current time print karwa liya
@@ -181,7 +182,7 @@ function toggleSong(){  //created a function that toggle the song
         }
         else
         {
-            var audio = document.querySelector('audio');
+            var audio = document.querySelector('.audio1');
             audio.src= songs[0].source;
           $('.content').removeClass('hidden');
         $('.drum_app').addClass('hidden');  
@@ -197,7 +198,7 @@ function toggleSong(){  //created a function that toggle the song
 
     function repeatAll()
     {
-        var audio= document.querySelector('audio');
+        var audio= document.querySelector('.audio1');
         if(audio.currentTime==audio.duration)
         {
             if(shuffle==1)
@@ -254,7 +255,7 @@ function toggleSong(){  //created a function that toggle the song
         
              var currentSong= currentSongSource();
             var currentSongObj= songs[currentSong];
-             var audio= document.querySelector('audio');
+             var audio= document.querySelector('.audio1');
            
             if(currentSong-1<songs.length-1)
             {audio.src=currentSongObj.source;}
@@ -277,7 +278,7 @@ function toggleSong(){  //created a function that toggle the song
         
              var currentSong= currentSongSource();
             var currentSongObj= songs[currentSong-2];
-             var audio= document.querySelector('audio');
+             var audio= document.querySelector('.audio1');
            
             if(currentSong>1)
             {audio.src=currentSongObj.source;}
@@ -295,7 +296,7 @@ function toggleSong(){  //created a function that toggle the song
     //--------------------- Shuffle Function ----------------
         var indexOfRandom=0;
        function shuffleSongs() {
-     var audio=document.querySelector('audio');
+     var audio=document.querySelector('.audio1');
     
             // var random=~~((Math.random()*100)%4);
             //     console.log(random);
@@ -383,8 +384,10 @@ function toggleSong(){  //created a function that toggle the song
     {
       var imgClass= '.drumComponent' + (position+1);
         console.log(imgClass);
+        var audioClass= '.audio'+(position+1);
         $(imgClass).on('click',function(){
-        var audio = document.querySelector('audio');
+
+        var audio = document.querySelector(audioClass);
         audio.src= drumSound[position];
         console.log(audio.src);
         audio.play();
@@ -396,7 +399,8 @@ function toggleSong(){  //created a function that toggle the song
         {
              $('body').on('keypress', function(event) { //body ko pakda uspe keypress ka event lagaya, jab key press hogi tab function chalega; isme event as an argument pass kiya hai
                 var target= event.target;
-                var audio= document.querySelector('audio');
+                var audioClass= '.audio'+(key+1);
+                var audio= document.querySelector(audioClass);
                 
                 if (event.keyCode == keycodes[key]) // event se hum bhot kuch check kar sakte hain jaise yahan humne keyCode check kiya hai matlab jo key humne press ki hai uska code 32 hai to ander wala code chalega otherwise nhi
                 {
@@ -441,7 +445,7 @@ function toggleSong(){  //created a function that toggle the song
             $(id).on('click',function()// jo value id mein thi usse pakad kar on click event lga diya and click hone pe wo function chalega
             {
 
-            var audio= document.querySelector('audio'); // audio tag ko pakad ke ek audio name ke box mein band kar liya
+            var audio= document.querySelector('.audio1'); // audio tag ko pakad ke ek audio name ke box mein band kar liya
              if(audio.src.search(songSrc)!=-1)// udio ke src attribute mein se song search kiya agar search ho gya to if block chalega
             {
                 toggleSong();// toggleSong func. call kiya 
@@ -476,7 +480,7 @@ function toggleSong(){  //created a function that toggle the song
        
 
        
-       $('audio').on('ended',function(){
+       $('.audio1').on('ended',function(){
         if(shuffle==1)
        {
         
