@@ -4,33 +4,28 @@
     <meta charset="UTF-8">
     <title>Song App</title>
     <link href="font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
     <link href="main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div class="wrapper">
-        <section class="welcome-screen hidden ">
+        <section class="welcome-screen ">
             <h1>Welcome to Songify</h1>
             <h3>Enter name to access your account</h3>
             <div class="input-wrapper">
-                <input id="name-input" placeholder="Name" type="text" style="font-size: 18px; color: gray;"> <button style="font-size: 18px; ">Go</button>
+                <input id="name-input" placeholder="Name" style="font-size: 18px; color: gray;" type="text"> <button style="font-size: 18px;">Go</button>
             </div>
         </section>
-        <section class="loading hidden">
+       <section class="loading hidden">
             <img src="https://www.insanyah.com/img/loader.gif">
         </section>
-        <div class="main ">
+        <div class="main hidden">
             <header>
                 <div class="right floated user-name"></div>
             </header>
-            <section class="content  hidden">
-                <audio class="audio1" src="song1.mp3"></audio>
-                <audio class="audio2"></audio>
-                <audio class="audio3"></audio>
-                <audio class="audio4"></audio>
-                <audio class="audio5"></audio>
-                <audio class="audio6"></audio>
-                <audio class="audio7"></audio>
+            <section class="content">
+                <audio class="audio1" src="song1.mp3"></audio> <audio class="audio2"></audio> <audio class="audio3"></audio> <audio class="audio4"></audio> <audio class="audio5"></audio> <audio class="audio6"></audio> <audio class="audio7"></audio>
                 <table id="songs">
                     <thead class="list-headers">
                         <tr>
@@ -75,15 +70,9 @@
                     </div>
                 </div>
             </section>
-            <section class="drum_app">
+            <section class="drum_app hidden">
                 <div id="back">
-                    <img src="hi_hat.png" class="drumComponent1 clickable">
-                    <img src="snare_drum.png" class="drumComponent2 clickable">
-                    <img src="bass_drum.png" class="drumComponent3 clickable">
-                    <img src="low_tom.png" class="drumComponent4 clickable">
-                    <img src="middle_tom.png" class="drumComponent5 clickable">
-                    <img src="Floor_Tom.png" class="drumComponent6 clickable">
-                    <img src="ride_cymbal.png" class="drumComponent7 clickable">
+                    <img class="drumComponent1 clickable" src="hi_hat.png"> <img class="drumComponent2 clickable" src="snare_drum.png"> <img class="drumComponent3 clickable" src="bass_drum.png"> <img class="drumComponent4 clickable" src="low_tom.png"> <img class="drumComponent5 clickable" src="middle_tom.png"> <img class="drumComponent6 clickable" src="Floor_Tom.png"> <img class="drumComponent7 clickable" src="ride_cymbal.png">
                     <ul style="display: inline-block;list-style: none;line-height: 30px;">
                         <li>H : Hi-Hat</li>
                         <li>S : Snare-Drum</li>
@@ -95,12 +84,32 @@
                     </ul>
                 </div>
             </section>
+            <section class="slider hidden">
+                <div class="carousel slide" data-ride="carousel" id="carousel-example-generic">
+                    <!-- Indicators -->
+                    <!-- <ol class="carousel-indicators">
+                        <li class="active" data-slide-to="0" data-target="#carousel-example-generic"></li>
+                        <li data-slide-to="1" data-target="#carousel-example-generic"></li>
+                        <li data-slide-to="2" data-target="#carousel-example-generic"></li>
+                    </ol> --><!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <img alt="..." src="top_ride_1.jpg"> <!-- <div class="carousel-caption">
+                            </div> -->
+                        </div>
+                        
+                        <!--<div class="item">
+                            <img alt="..." src="topi_ride_3.jpg">  <div class="carousel-caption">
+        
+                            </div>  
+                        </div>-->
+                    </div><!-- Controls -->
+                     <a class="left carousel-control" data-slide="prev" href="#carousel-example-generic" role="button"><!-- <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span> --> <span class="sr-only">Previous</span></a> <a class="right carousel-control" data-slide="next" href="#carousel-example-generic" role="button"><!-- <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>  --><span class="sr-only">Next</span></a>
+                </div>
+            </section>
             <footer>
                 <div class="controls">
-                    <div class="player-buttons">
-                        <i aria-hidden="true" class="fa fa-random clickable shuffle-icon disable"></i> <i aria-hidden="true" class="fa fa-step-backward clickable previous-icon"></i> <i aria-hidden="true" class="fa fa-play clickable play-icon"></i> <i aria-hidden="true" class="fa fa-step-forward clickable next-icon"></i> <i aria-hidden="true" class="fa fa-repeat clickable repeat-icon disable"></i>
-                        <img src="drum.png" class="clickable" id="drumIcon">
-                    </div>  
+                    <div class="player-buttons"><i class="fa fa-sliders slider-icon clickable disable" aria-hidden="true"></i><i aria-hidden="true" class="fa fa-random clickable shuffle-icon disable"></i> <i aria-hidden="true" class="fa fa-step-backward clickable previous-icon"></i> <i aria-hidden="true" class="fa fa-play clickable play-icon"></i> <i aria-hidden="true" class="fa fa-step-forward clickable next-icon"></i> <i aria-hidden="true" class="fa fa-repeat clickable repeat-icon disable"></i> <img class="clickable" id="drumIcon" src="drum.png"></div>
                     <div class="progress-wrapper">
                         <span class="time-elapsed"></span>
                         <div class="player-progress">
@@ -110,9 +119,10 @@
                 </div>
             </footer>
         </div>
-
     </div>
     <script src="jquery.js">
+    </script> 
+    <script src="js/bootstrap.min.js" type="text/javascript">
     </script> 
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js">
     </script> 

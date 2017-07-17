@@ -4,6 +4,7 @@
     var currentSong;
     var drumClicked=0;
     var audioPlaced=0;
+    var slide=0;
     //-------------------- Drum Audio Array -----------
 
     var drumSound= ['hi_hat.mp3','snare_drrum.mp3','bass_drum.mp3','low_tom.mp3','mid_tom.mp3','floor_tom.mp3','ride_cymbal.mp3'];
@@ -18,7 +19,8 @@
             'artist':'SoMo',
             'dur':'3:37',
             'source':'song1.mp3',
-            'img':'song1.jpeg'
+            'img':'song1.jpeg',
+            'sliderImages':['top_ride_1.jpg','topi_ride_2.jpg','topi_ride_3.jpg']
         },
         {
             'name':'Emptiness',
@@ -26,7 +28,8 @@
             'artist':'Gajendra Verma',
             'dur':'4:05',
             'source':'song2.mp3',
-            'img':'song2.jpg'
+            'img':'song2.jpg',
+            'sliderImages':['emp.jpg','emp1.jpg','emp2.jpg','emp3.jpg','emp4.jpg']
         },
         {
             'name':'I wanna grow old with you',
@@ -34,7 +37,8 @@
             'artist':'Westlife',
             'dur':'4:08',
             'source':'song3.mp3',
-            'img':'song3.jpeg'
+            'img':'song3.jpeg',
+            'sliderImages':['iwgowy.jpg','iwgowy1.jpg','iwgowy2.jpg','iwgowy3.jpg']
         },
         {
             'name':'Nashe si chad gayi',
@@ -42,7 +46,8 @@
             'artist':'Arijit Singh',
             'dur':'2:34',
             'source':'song4.mp3',
-            'img':'song4.jpg'
+            'img':'song4.jpg',
+            'sliderImages':['nscg.jpg','nscg1.jpg','nscg2.jpg','nscg3.jpg']
         }
         ]
         //---------------- Current Song Source --------------
@@ -194,6 +199,8 @@ function toggleSong(){  //created a function that toggle the song
         
     });
 
+        
+
         //--------------------- Play All Function ----------------
 
     function repeatAll()
@@ -315,8 +322,52 @@ function toggleSong(){  //created a function that toggle the song
        
            // body...
        }
-       
 
+       //-------------------- slider images added---------------
+       function sliderImagesAdded()
+       {
+        var crntSong= currentSongSource();
+        var songObj=songs[crntSong-1];
+        for(var i=0;i<songs.length;i++)
+        {
+            for (var j=0;j<songObj.sliderImages.length;j++) {
+                console.log(j);
+                console.log(songObj.sliderImages[j]);
+                    var img_src= songObj.sliderImages[j];
+                var list='';
+                list=list+ '<div class="item"><img alt="..." src="'+ img_src +'">  <div class="carousel-caption"></div></div>';
+
+                // setTimeout(function() {
+
+                //     $('.item img').attr('src',img_src);
+                // }, 2000);
+                
+            }
+            $('.carousel-inner').html(list);
+        }
+        
+       }
+       
+       //------------------------ Slider icon ------------
+
+    $('.slider-icon').on('click', function(){
+        slide=1-slide;
+        if(slide==1)
+        {
+            sliderImagesAdded();
+         $('.content').addClass('hidden');
+        $('.drum_app').removeClass('clickable');  
+        $('.slider').removeClass('hidden');
+        }
+        else
+        {
+            
+          $('.content').removeClass('hidden');
+        $('.drum_app').addClass('clickable');  
+        $('.slider').addClass('hidden');
+        }
+        
+    });
 
     //------------------ play-icon pressed ---------------------
    
@@ -388,9 +439,11 @@ function toggleSong(){  //created a function that toggle the song
         $(imgClass).on('click',function(){
 
         var audio = document.querySelector(audioClass);
+        if (drumClicked==1) {
         audio.src= drumSound[position];
         console.log(audio.src);
         audio.play();
+    }
     });     
     }
         var keycodes=['72','83','66','76','77','70','82'];
@@ -402,7 +455,7 @@ function toggleSong(){  //created a function that toggle the song
                 var audioClass= '.audio'+(key+1);
                 var audio= document.querySelector(audioClass);
                 
-                if (event.keyCode == keycodes[key]) // event se hum bhot kuch check kar sakte hain jaise yahan humne keyCode check kiya hai matlab jo key humne press ki hai uska code 32 hai to ander wala code chalega otherwise nhi
+                if (event.keyCode == keycodes[key] && drumClicked==1) // event se hum bhot kuch check kar sakte hain jaise yahan humne keyCode check kiya hai matlab jo key humne press ki hai uska code 32 hai to ander wala code chalega otherwise nhi
                 {
                     console.log(keycodes[key]);
                    
